@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen Card | O Seu Cartão na Tela de Bloqueio</title>
+  <style>
+    :root {
+      --bg: #0b1322;
+      --card-bg: #142238;
+      --card-border: rgba(56, 189, 248, 0.15);
+      --primary-cyan: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --text: #ffffff;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.6; padding: 0 16px 60px 16px; }
+    .container { max-width: 680px; margin: 0 auto; }
+
+    /* Cabeçalho */
+    header { padding: 40px 0 20px; text-align: center; }
+    .brand-badge { 
+      display: inline-block; 
+      background: rgba(56, 189, 248, 0.1); 
+      color: var(--primary-cyan); 
+      font-weight: 700; 
+      font-size: 0.8rem; 
+      padding: 6px 16px; 
+      border-radius: 999px; 
+      margin-bottom: 16px; 
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      letter-spacing: 0.05em;
+    }
+    h1 { font-size: 2rem; line-height: 1.2; margin-bottom: 12px; font-weight: 800; }
+    h1 span { color: var(--primary-cyan); }
+    header p { color: var(--text-muted); font-size: 1.05rem; }
+
+    /* Card Destaque Hero */
+    .hero-card {
+      background: linear-gradient(145deg, #182d4d 0%, #102138 100%);
+      border: 1px solid var(--primary-cyan);
+      border-radius: 20px;
+      padding: 28px 20px;
+      margin: 24px 0 36px;
+      box-shadow: 0 12px 30px var(--accent-glow);
+      text-align: center;
+    }
+
+    /* Botão CTA Principal */
+    .btn-cta {
+      display: block;
+      text-align: center;
+      background: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%);
+      color: #fff;
+      padding: 16px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1rem;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn-cta:active { transform: scale(0.98); opacity: 0.9; }
+
+    /* Lista de Benefícios */
+    .section-title { font-size: 1.25rem; font-weight: 700; margin: 36px 0 16px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
+    
+    .grid-benefits { display: flex; flex-direction: column; gap: 14px; }
+    .benefit-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .benefit-icon { font-size: 1.4rem; line-height: 1; }
+    .benefit-content h3 { font-size: 1rem; margin-bottom: 4px; color: #f1f5f9; }
+    .benefit-content p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* Seção Experimente (QR Code Demo) */
+    .demo-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 2px dashed var(--primary-cyan);
+      border-radius: 20px;
+      padding: 28px 20px;
+      text-align: center;
+      margin: 36px 0;
+    }
+    .demo-box h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .demo-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+    .qr-placeholder {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 16px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    .qr-placeholder img { width: 160px; height: 160px; display: block; }
+    
+    .btn-secondary {
+      display: inline-block;
+      color: var(--primary-cyan);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid var(--primary-cyan);
+      padding: 10px 18px;
+      border-radius: 10px;
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    /* O que está incluso */
+    .package-list { list-style: none; margin: 16px 0; }
+    .package-list li { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; color: #cbd5e1; margin-bottom: 10px; }
+    .package-list li span { color: var(--primary-cyan); font-weight: bold; }
+
+    footer { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="brand-badge">SCREEN CARD MOBILE</div>
+      <h1>Seu cartão de visitas na <span>tela de bloqueio</span></h1>
+      <p>Apresentação profissional instantânea em reuniões e eventos. Sem abrir apps e sem destravar o celular.</p>
+    </header>
+
+    <!-- HERO / CTA RÁPIDO -->
+    <div class="hero-card">
+      <p style="font-size: 0.95rem; margin-bottom: 16px; color: #e2e8f0;">
+        Saque o celular do bolso e deixe a pessoa escanear o QR Code direto do seu wallpaper. Simples, rápido e inesquecível.
+      </p>
+      <a class="btn-cta" href="https://wa.me/5500000000000?text=Olá!%20Gostaria%20de%20encomendar%20meu%20Screen%20Card." target="_blank" rel="noopener">
+        Quero Garantir o Meu Screen Card →
+      </a>
+    </div>
+
+    <!-- DIFERENCIAIS -->
+    <h2 class="section-title">Por que usar o Screen Card?</h2>
+    
+    <div class="grid-benefits">
+      <div class="benefit-item">
+        <div class="benefit-icon">⚡</div>
+        <div class="benefit-content">
+          <h3>Zero Atrito Social</h3>
+          <p>Esqueça a demora para soletrar e-mail, abrir o WhatsApp ou procurar perfil nas redes. Mostre a tela do celular e pronto!.</p>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-icon">📱</div>
+        <div class="benefit-content">
+          <h3>Calibrado para o seu Smartphone</h3>
+          <p>Criamos um wallpaper com o QR Code posicionado na área limpa da tela do seu modelo de celular (iOS ou Android), sem cobrir o relógio e notificações.</p>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="benefit-icon">📇</div>
+        <div class="benefit-content">
+          <h3>Contato com 1 Toque (VCF)</h3>
+          <p>Ao ler o código, seu cliente baixa o arquivo de contato direto para a agenda do celular, com foto, e-mail e seus links organizados.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPERIMENTE NA PRÁTICA -->
+    <div class="demo-box">
+      <h3>Experimente Agora</h3>
+      <p>Aponte a câmera do seu celular para o QR Code abaixo para ver a experiência em tempo real:</p>
+      
+      <div class="qr-placeholder">
+        <!-- Substitua 'Exemplo.png' pela imagem do seu QR Code gerado para o modelo genérico -->
+        <img src="QRTelaRedmi_1.png?v=2" alt="QR Code de Demonstração" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://tbxavierrocha.github.io/CartaoExample/_Cartao_Virtual_QR_Example.html'">
+      </div>
+      <br>
+      <a class="btn-secondary" href="https://xrhealthtech.github.io/CartaoExample/" target="_blank">
+        Ou clique aqui para testar no navegador ↗
+      </a>
+    </div>
+
+    <!-- O QUE ESTÁ INCLUSO -->
+    <h2 class="section-title">O que você recebe no pacote</h2>
+    <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px;">
+      <ul class="package-list">
+        <li><span>✓</span> <strong>Wallpaper sob medida:</strong> Com o QR Code posicionado perfeitamente para a tela de bloqueio do seu smartphone.</li>
+        <li><span>✓</span> <strong>Landing Page Exclusiva:</strong> Seu cartão digital interativo com links para WhatsApp, Redes Sociais e Serviços.</li>
+        <li><span>✓</span> <strong>Gerador de VCF:</strong> Botão integrado para salvar todos os seus dados na agenda do seu cliente.</li>
+        <li><span>✓</span> <strong>Hospedagem inclusa:</strong> Sem mensalidades nem taxas ocultas.</li>
+      </ul>
+    </div>
+
+    <!-- CTA FINAL -->
+    <div style="margin-top: 36px;">
+      <a class="btn-cta" href="https://wa.me/5500000000000?text=Olá!%20Gostaria%20de%20pedir%20meu%20Screen%20Card." target="_blank" rel="noopener">
+        Pedir Meu Screen Card no WhatsApp
+      </a>
+    </div>
+
+    <footer>
+      Screen Card Studio © Todos os direitos reservados.
+    </footer>
+  </div>
+
+</body>
+</html>
