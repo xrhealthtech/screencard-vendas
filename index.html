@@ -3,217 +3,316 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Screen Card | O Seu Cartão na Tela de Bloqueio</title>
+  <title>ScreenCard</title>
   <style>
     :root {
-      --bg: #0b1322;
-      --card-bg: #142238;
-      --card-border: rgba(56, 189, 248, 0.15);
-      --primary-cyan: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.2);
-      --text: #ffffff;
+      --bg-color: #0f172a;
+      --card-bg: #1e3a5f;
+      --accent: #f97316;
+      --text-main: #ffffff;
       --text-muted: #94a3b8;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); line-height: 1.6; padding: 0 16px 60px 16px; }
-    .container { max-width: 680px; margin: 0 auto; }
-
-    /* Cabeçalho */
-    header { padding: 40px 0 20px; text-align: center; }
-    .brand-badge { 
-      display: inline-block; 
-      background: rgba(56, 189, 248, 0.1); 
-      color: var(--primary-cyan); 
-      font-weight: 700; 
-      font-size: 0.8rem; 
-      padding: 6px 16px; 
-      border-radius: 999px; 
-      margin-bottom: 16px; 
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      letter-spacing: 0.05em;
-    }
-    h1 { font-size: 2rem; line-height: 1.2; margin-bottom: 12px; font-weight: 800; }
-    h1 span { color: var(--primary-cyan); }
-    header p { color: var(--text-muted); font-size: 1.05rem; }
-
-    /* Card Destaque Hero */
-    .hero-card {
-      background: linear-gradient(145deg, #182d4d 0%, #102138 100%);
-      border: 1px solid var(--primary-cyan);
-      border-radius: 20px;
-      padding: 28px 20px;
-      margin: 24px 0 36px;
-      box-shadow: 0 12px 30px var(--accent-glow);
-      text-align: center;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-    /* Botão CTA Principal */
-    .btn-cta {
-      display: block;
+    .container {
+      width: 100%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;      
+    }
+
+    /* Caixa do Seletor de Cores */
+    .color-picker-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: -10px;
+    }
+
+    .color-picker-box span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .color-options {
+      display: flex;
+      gap: 8px;
+    }
+
+    .color-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .color-btn:hover, .color-btn.active {
+      transform: scale(1.25);
+      border-color: #ffffff;
+    }
+
+    /* Cartão Estilizado */
+    .business-card {
+      background: linear-gradient(135deg, #1b355a 0%, #10223b 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 36px 24px;
       text-align: center;
-      background: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%);
-      color: #fff;
-      padding: 16px 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-symbol {
+      width: 68px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .title {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* Botões de Ação */
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 20px;
       border-radius: 12px;
       text-decoration: none;
-      font-weight: 800;
-      font-size: 1rem;
-      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
-      transition: transform 0.2s, opacity 0.2s;
-    }
-    .btn-cta:active { transform: scale(0.98); opacity: 0.9; }
-
-    /* Lista de Benefícios */
-    .section-title { font-size: 1.25rem; font-weight: 700; margin: 36px 0 16px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
-    
-    .grid-benefits { display: flex; flex-direction: column; gap: 14px; }
-    .benefit-item {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 18px;
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-    }
-    .benefit-icon { font-size: 1.4rem; line-height: 1; }
-    .benefit-content h3 { font-size: 1rem; margin-bottom: 4px; color: #f1f5f9; }
-    .benefit-content p { font-size: 0.88rem; color: var(--text-muted); }
-
-    /* Seção Experimente (QR Code Demo) */
-    .demo-box {
-      background: rgba(255, 255, 255, 0.03);
-      border: 2px dashed var(--primary-cyan);
-      border-radius: 20px;
-      padding: 28px 20px;
-      text-align: center;
-      margin: 36px 0;
-    }
-    .demo-box h3 { font-size: 1.2rem; margin-bottom: 8px; }
-    .demo-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
-    .qr-placeholder {
-      background: #ffffff;
-      padding: 16px;
-      border-radius: 16px;
-      display: inline-block;
-      margin-bottom: 16px;
-    }
-    .qr-placeholder img { width: 160px; height: 160px; display: block; }
-    
-    .btn-secondary {
-      display: inline-block;
-      color: var(--primary-cyan);
-      text-decoration: none;
       font-weight: 600;
-      font-size: 0.9rem;
-      border: 1px solid var(--primary-cyan);
-      padding: 10px 18px;
-      border-radius: 10px;
-      background: rgba(56, 189, 248, 0.05);
+      font-size: 0.95rem;
+      transition: transform 0.1s ease, opacity 0.2s ease;
+      cursor: pointer;
+      border: none;
     }
 
-    /* O que está incluso */
-    .package-list { list-style: none; margin: 16px 0; }
-    .package-list li { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; color: #cbd5e1; margin-bottom: 10px; }
-    .package-list li span { color: var(--primary-cyan); font-weight: bold; }
+    .btn:active {
+      transform: scale(0.98);
+    }
 
-    footer { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 40px; }
+    /* Botão Principal: Download VCF */
+    .btn-primary {
+      background-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+    }
+
+    /* Botões Secundários */
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+      .tip-box {
+      background: rgba(249, 115, 22, 0.1);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      color: #ffedd5;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      line-height: 1.4;
+    }
+
+  .tip-box svg {
+    color: var(--accent);
+   flex-shrink: 0;
+  }
+
+  .tip-box strong {
+    color: #ffffff;
+  }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <header>
-      <div class="brand-badge">SCREEN CARD MOBILE</div>
-      <h1>Seu cartão de visitas na <span>tela de bloqueio</span></h1>
-      <p>Apresentação profissional instantânea em reuniões e eventos. Sem abrir apps e sem destravar o celular.</p>
-    </header>
 
-    <!-- HERO / CTA RÁPIDO -->
-    <div class="hero-card">
-      <p style="font-size: 0.95rem; margin-bottom: 16px; color: #e2e8f0;">
-        Saque o celular do bolso e deixe a pessoa escanear o QR Code direto do seu wallpaper. Simples, rápido e inesquecível.
+    <!-- Seletor de Cores (Demonstração Interativa) -->
+    <div class="color-picker-box">
+      <span>Teste as cores:</span>
+      <div class="color-options">
+        <button class="color-btn active" style="background: #f97316;" onclick="changeTheme('#f97316', '#1b355a', '#10223b')" title="Laranja Original"></button>
+        <button class="color-btn" style="background: #3b82f6;" onclick="changeTheme('#3b82f6', '#1e293b', '#0f172a')" title="Azul Profissional"></button>
+        <button class="color-btn" style="background: #10b981;" onclick="changeTheme('#10b981', '#064e3b', '#022c22')" title="Verde Saúde"></button>
+        <button class="color-btn" style="background: #a855f7;" onclick="changeTheme('#a855f7', '#3b0764', '#1e1b4b')" title="Roxo Moderno"></button>
+        <button class="color-btn" style="background: #e11d48;" onclick="changeTheme('#e11d48', '#4c0519', '#1f040a')" title="Vermelho Premium"></button>
+      </div>
+    </div>
+
+    <!-- Visualização do Cartão -->
+    <div class="business-card" id="card">
+      <!-- Substitua src pelo link do seu arquivo SVG ou PNG da logo -->
+      <img class="logo-symbol" src="exemplo.png" alt="Exemplo" style="width: 130px; height: 130px; border-radius: 50%;" onerror="this.style.display='none'">
+      <h1 class="name">Seu nome aqui</h1>
+      <p class="title">Subtítulo</p>
+    </div>
+
+    <!-- Aviso geral de simulação -->
+    <div style="background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-align: center;">
+      <p style="font-size: 0.82rem; color: #94a3b8; line-height: 1.4;">
+        💡 <strong style="color: #38bdf8;">Cartão de Demonstração:</strong> Os botões abaixo são exemplos. No seu Screen Card oficial, tudo será personalizado com os seus dados e links.
       </p>
-      <a class="btn-cta" href="https://wa.me/5538997540343?text=Olá!%20Gostaria%20de%20encomendar%20meu%20Screen%20Card." target="_blank" rel="noopener">
-        Quero Garantir o Meu Screen Card →
+    </div>
+    <!-- Links e Ações -->
+    <div class="actions">
+      <!-- Gera o contato direto na agenda -->
+      <button class="btn btn-primary" onclick="generateVCard()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7.5" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+        Salvar na Agenda
+      </button>
+
+      <!-- Mensagem direta -->
+      <a class="btn btn-secondary" href="https://wa.me/5538997540343?text=Olá!%20Teste%20o%20cartão%20de%20e%20gostaria%20de%20pedir%20um%20para%20mim.">
+        Conversar no WhatsApp
       </a>
+
+      <!-- Landing Page / Site -->
+      <a class="btn btn-secondary" href="CardapioExample.html">
+        Serviços
+      </a>
+
+      <!-- Currículo Lattes / Acadêmico -->
+      <a class="btn btn-secondary" href="https://www.instagram.com/" target="_blank" rel="noopener">
+        Instagram
+      </a>
+
+      <!-- Currículo Lattes / Acadêmico -->
+      <a class="btn btn-secondary" href="sobre.html" target="_blank" rel="noopener">
+        Sobre
+      </a>
+
+      <!-- Botão Compartilhar -->
+      <button class="btn btn-secondary" id="btn-compartilhar">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+          Compartilhar Cartão
+      </button>  
     </div>
 
-    <div style="text-align: center; margin: -16px 0 24px 0;">
-      <p style="font-size: 1.3rem; color: red; font-weight: 600;">
-        ↓ Role a página para ver o passo a passo e testar a simulação ao vivo ↓
-      </p>
+    <!-- Dica de instrução -->
+    <div class="tip-box">
+      <button class="btn btn-secondary" onclick="generateVCard()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span>Toque em <strong>"Salvar na Agenda"</strong> para baixar o contato. Toque em OK para confirmar.</span>
+      </button>
     </div>
+  
 
-    <!-- DIFERENCIAIS -->
-    <h2 class="section-title">Por que usar o Screen Card?</h2>
-    
-    <div class="grid-benefits">
-      <div class="benefit-item">
-        <div class="benefit-icon">⚡</div>
-        <div class="benefit-content">
-          <h3>Zero Atrito Social</h3>
-          <p>Esqueça a demora para soletrar e-mail, abrir o WhatsApp ou procurar perfil nas redes. Mostre a tela do celular e pronto!.</p>
-        </div>
-      </div>
+  <script>
+    function generateVCard() {
+      // Configure aqui seus dados cadastrais exatos
+      const contactData = {
+        name: "Seu nome aqui",
+        firstName: "Seu nome",
+        lastName: "Seu sobrenome",
+        org: "Sua organização",
+        title: "Seu cargo",
+        phone: "+553800000000", // Coloque seu DDI + DDD + Número
+        email: "seu_email@dominio.com",
+        url: "https://seusite.com.br"
+      };
 
-      <div class="benefit-item">
-        <div class="benefit-icon">📱</div>
-        <div class="benefit-content">
-          <h3>Calibrado para o seu Smartphone</h3>
-          <p>Criamos um wallpaper com o QR Code posicionado na área limpa da tela do seu modelo de celular (iOS ou Android), sem cobrir o relógio e notificações.</p>
-        </div>
-      </div>
+      const vcard = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        `N:${contactData.lastName};${contactData.firstName};;;`,
+        `FN:${contactData.name}`,
+        `ORG:${contactData.org}`,
+        `TITLE:${contactData.title}`,
+        `TEL;TYPE=CELL,VOICE:${contactData.phone}`,
+        `EMAIL;TYPE=WORK,INTERNET:${contactData.email}`,
+        `URL:${contactData.url}`,
+        "END:VCARD"
+      ].join("\r\n");
 
-      <div class="benefit-item">
-        <div class="benefit-icon">📇</div>
-        <div class="benefit-content">
-          <h3>Contato com 1 Toque (VCF)</h3>
-          <p>Ao ler o código, seu cliente baixa o arquivo de contato direto para a agenda do celular, com foto, e-mail e seus links organizados.</p>
-        </div>
-      </div>
-    </div>
+      const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", `${contactData.firstName}_Contato.vcf`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
 
-    <!-- EXPERIMENTE NA PRÁTICA -->
-    <div class="demo-box">
-      <h3>Experimente Agora</h3>
-      <p>Aponte a câmera do seu celular para o QR Code abaixo para ver a experiência em tempo real:</p>
+    // Função para alterar as cores em tempo real
+    function changeTheme(accentColor, cardBgStart, cardBgEnd) {
+      // Altera a cor de destaque (botão principal)
+      document.documentElement.style.setProperty('--accent', accentColor);
       
-      <div class="qr-placeholder">
-        <!-- Substitua 'Exemplo.png' pela imagem do seu QR Code gerado para o modelo genérico -->
-        <img src="QRTelaRedmi_1.png?v=2" alt="QR Code de Demonstração" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://tbxavierrocha.github.io/CartaoExample/_Cartao_Virtual_QR_Example.html'">
-      </div>
-      <br>
-      <a class="btn-secondary" href="https://xrhealthtech.github.io/CartaoExample/" target="_blank">
-        Ou clique aqui para testar no navegador ↗
-      </a>
-    </div>
+      // Altera o gradiente do cartão
+      const card = document.getElementById('card');
+      if (card) {
+        card.style.background = `linear-gradient(135deg, ${cardBgStart} 0%, ${cardBgEnd} 100%)`;
+      }
 
-    <!-- O QUE ESTÁ INCLUSO -->
-    <h2 class="section-title">O que você recebe no pacote</h2>
-    <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px;">
-      <ul class="package-list">
-        <li><span>✓</span> <strong>Wallpaper sob medida:</strong> Com o QR Code posicionado perfeitamente para a tela de bloqueio do seu smartphone.</li>
-        <li><span>✓</span> <strong>Landing Page Exclusiva:</strong> Seu cartão digital interativo com links para WhatsApp, Redes Sociais e Serviços.</li>
-        <li><span>✓</span> <strong>Gerador de VCF:</strong> Botão integrado para salvar todos os seus dados na agenda do seu cliente.</li>
-        <li><span>✓</span> <strong>Hospedagem inclusa:</strong> Sem mensalidades nem taxas ocultas.</li>
-      </ul>
-    </div>
-
-    <!-- CTA FINAL -->
-    <div style="margin-top: 36px;">
-      <a class="btn-cta" href="https://wa.me/5500000000000?text=Olá!%20Gostaria%20de%20pedir%20meu%20Screen%20Card." target="_blank" rel="noopener">
-        Pedir Meu Screen Card no WhatsApp
-      </a>
-    </div>
-
-    <footer>
-      Screen Card Studio © Todos os direitos reservados.
-    </footer>
-  </div>
-
+      // Destaca a bolinha selecionada
+      document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
+      if (event && event.target) {
+        event.target.classList.add('active');
+      }
+    }
+  </script>
 </body>
 </html>
